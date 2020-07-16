@@ -6,3 +6,4 @@ class BasePageLocators:
     GEO_INPUT_FIELD = (By.CSS_SELECTOR, '.input__box .input__input')
     GEO_CHECKBOX = (By.CSS_SELECTOR, 'input.checkbox__control')
     GEO_CHECKBOX_BLOCK = (By.CSS_SELECTOR, 'span.checkbox')
+    GEO_FIRST_ITEM = (By.CSS_SELECTOR, 'div.popup__content > ul > li:nth-child(1)')

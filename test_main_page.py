@@ -1,6 +1,8 @@
-import pytest
+from time import sleep
 
-from conftest import browser
+import pytest
+from selenium.webdriver.common.keys import Keys
+
 from pages.basepage import BasePage
 
 
@@ -31,7 +33,14 @@ class TestChooseCity:
     @pytest.mark.test
     def test_change_geo_location(self, browser):
         """Check that geo location would be changed to selected location."""
-        pass
+        page = BasePage(browser, MAIN_URL)
+        page.open()
+        page.go_to_geo_page()
+        page.deactivate_geo_checkbox()
+        input_field = page.get_city_input_field()
+        input_field.send_keys("Moscow")
+        page.push_first_geo_item()
+
 
 
 

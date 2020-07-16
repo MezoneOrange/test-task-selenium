@@ -1,5 +1,7 @@
 import requests
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 from .locators import BasePageLocators
 
@@ -56,6 +58,14 @@ class BasePage:
     def get_geo_checkbox_block(self):
         """Returns checkbox block for auto-choosing geo location."""
         return self.browser.find_element(*BasePageLocators.GEO_CHECKBOX_BLOCK)
+
+    def push_first_geo_item(self):
+        """Moves mouse to first geo item from found item's list and click by it."""
+        ActionChains(self.browser).move_to_element(self.get_first_geo_item()).click().perform()
+
+    def get_first_geo_item(self):
+        """Returns first element from item's list."""
+        return self.browser.find_element(*BasePageLocators.GEO_FIRST_ITEM)
 
     def should_be_geo_link(self):
         """Checks that geo link is presented."""
