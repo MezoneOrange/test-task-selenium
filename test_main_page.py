@@ -20,7 +20,6 @@ class TestChooseCity:
         page.open()
         page.should_be_geo_link()
 
-    @pytest.mark.test
     def test_existing_city_input_field(self, browser):
         """The test for checking to city's input field is exist."""
         page = BasePage(browser, MAIN_URL)
@@ -28,6 +27,11 @@ class TestChooseCity:
         page.go_to_geo_page()
         page.should_be_city_input_field()
         page.should_be_geo_checkbox()
+
+    @pytest.mark.test
+    def test_change_geo_location(self, browser):
+        """Check that geo location would be changed to selected location."""
+        pass
 
 
 
