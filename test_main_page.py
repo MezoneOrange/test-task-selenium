@@ -17,6 +17,13 @@ class TestChooseCity:
         page.open()
         sleep(10)
 
+    @pytest.mark.test
+    def test_existing_geo_link(self, browser):
+        page = BasePage(browser, MAIN_URL)
+        page.open()
+        page.should_be_geo_link()
+        sleep(5)
+
 
 if __name__ == '__main__':
     page = TestChooseCity()

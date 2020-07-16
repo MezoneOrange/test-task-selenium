@@ -1,5 +1,7 @@
 import requests
-from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+
+from .locators import BasePageLocators
 
 
 class BasePage:
@@ -32,3 +34,15 @@ class BasePage:
         """Checks status code of request. Returns True if it = 200"""
         r = requests.get(self.url)
         return r.status_code == 200
+
+    def should_be_geo_link(self):
+        """Checks that geo link is presented."""
+        assert self.is_element_present(*BasePageLocators.CHOOSE_GEO_LINK), "Geo link is not presented."
+
+    def is_element_present(self, how, what):
+        """Checks element to exist by locator."""
+        try:
+            self.browser.find_element(how, what)
+            return True
+        except NoSuchElementException:
+            return False
