@@ -40,9 +40,30 @@ class BasePage:
         link = self.browser.find_element(*BasePageLocators.CHOOSE_GEO_LINK)
         link.click()
 
+    def deactivate_geo_checkbox(self):
+        """Makes checkbox for auto-choosing geo location is deactivated."""
+        if self.geo_checkbox_is_active():
+            self.get_geo_checkbox().click()
+
+    def get_city_input_field(self):
+        """Returns input field for choosing geo location."""
+        return self.browser.find_element(*BasePageLocators.GEO_INPUT_FIELD)
+
+    def get_geo_checkbox(self):
+        """Returns checkbox for auto-choosing geo location."""
+        return self.browser.find_element(*BasePageLocators.GEO_CHECKBOX)
+
+    def get_geo_checkbox_block(self):
+        """Returns checkbox block for auto-choosing geo location."""
+        return self.browser.find_element(*BasePageLocators.GEO_CHECKBOX_BLOCK)
+
     def should_be_geo_link(self):
         """Checks that geo link is presented."""
         assert self.is_element_present(*BasePageLocators.CHOOSE_GEO_LINK), "Geo link is not presented."
+
+    def should_be_geo_checkbox(self):
+        """Checks that geo checkbox for auto location is presented."""
+        assert self.is_element_present(*BasePageLocators.GEO_CHECKBOX), "Geo checkbox is not presented."
 
     def should_be_city_input_field(self):
         """Checks that city's input field is presented."""
@@ -55,3 +76,9 @@ class BasePage:
             return True
         except NoSuchElementException:
             return False
+
+    def geo_checkbox_is_active(self):
+        """Check checkbox. If active, returns True."""
+        status = 'checkbox_checked_yes'
+        checkbox = self.get_geo_checkbox_block()
+        return status in checkbox.get_attribute('class').split()

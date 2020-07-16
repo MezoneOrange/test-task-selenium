@@ -27,6 +27,9 @@ class TestChooseCity:
         page.open()
         page.go_to_geo_page()
         page.should_be_city_input_field()
+        page.should_be_geo_checkbox()
+
+
 
 
 
