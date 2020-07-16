@@ -43,7 +43,10 @@ class BasePage:
     def should_be_geo_link(self):
         """Checks that geo link is presented."""
         assert self.is_element_present(*BasePageLocators.CHOOSE_GEO_LINK), "Geo link is not presented."
-        return True
+
+    def should_be_city_input_field(self):
+        """Checks that city's input field is presented."""
+        assert self.is_element_present(*BasePageLocators.GEO_INPUT_FIELD), "Geo city's input field is not presented."
 
     def is_element_present(self, how, what):
         """Checks element to exist by locator."""

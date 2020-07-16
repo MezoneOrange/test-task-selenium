@@ -1,5 +1,3 @@
-from time import sleep
-
 import pytest
 
 from conftest import browser
@@ -15,14 +13,12 @@ class TestChooseCity:
     def test_open_page(self, browser):
         page = BasePage(browser, MAIN_URL)
         page.open()
-        sleep(10)
 
     def test_existing_geo_link(self, browser):
         """The test for checking to geo link is exist."""
         page = BasePage(browser, MAIN_URL)
         page.open()
         page.should_be_geo_link()
-        sleep(5)
 
     @pytest.mark.test
     def test_existing_city_input_field(self, browser):
@@ -30,9 +26,7 @@ class TestChooseCity:
         page = BasePage(browser, MAIN_URL)
         page.open()
         page.go_to_geo_page()
+        page.should_be_city_input_field()
 
 
-if __name__ == '__main__':
-    page = TestChooseCity()
-    page.test_open_page()
-    sleep(10)
+
