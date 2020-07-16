@@ -44,7 +44,7 @@ class BasePage:
 
     def deactivate_geo_checkbox(self):
         """Makes checkbox for auto-choosing geo location is deactivated."""
-        if self.geo_checkbox_is_active():
+        if self.is_geo_checkbox_active():
             self.get_geo_checkbox().click()
 
     def get_city_input_field(self):
@@ -59,10 +59,6 @@ class BasePage:
         """Returns checkbox block for auto-choosing geo location."""
         return self.browser.find_element(*BasePageLocators.GEO_CHECKBOX_BLOCK)
 
-    def push_first_geo_item(self):
-        """Moves mouse to first geo item from found item's list and click by it."""
-        ActionChains(self.browser).move_to_element(self.get_first_geo_item()).click().perform()
-
     def get_first_geo_item(self):
         """Returns first element from item's list."""
         return self.browser.find_element(*BasePageLocators.GEO_FIRST_ITEM)
@@ -70,6 +66,10 @@ class BasePage:
     def get_main_block(self):
         """Returns main block in the main page."""
         return self.browser.find_element(*BasePageLocators.MAIN_JSON_BLOCK)
+
+    def get_maps_city_name(self):
+        """Returns main block in the main page."""
+        return self.browser.find_element(*BasePageLocators.REGION_CITY_NAME_TEXT)
 
     def should_be_geo_link(self):
         """Checks that geo link is presented."""
@@ -87,6 +87,10 @@ class BasePage:
         """Checks that main block is presented."""
         assert self.is_element_present(*BasePageLocators.MAIN_JSON_BLOCK), "Geo main block is not presented."
 
+    def should_be_maps_city_name(self):
+        """Checks that city name is presented."""
+        assert self.is_element_present(*BasePageLocators.REGION_CITY_NAME_TEXT), "Geo city name is not presented."
+
     def is_element_present(self, how, what):
         """Checks element to exist by locator."""
         try:
@@ -95,8 +99,13 @@ class BasePage:
         except NoSuchElementException:
             return False
 
-    def geo_checkbox_is_active(self):
+    def is_geo_checkbox_active(self):
         """Check checkbox. If active, returns True."""
         status = 'checkbox_checked_yes'
         checkbox = self.get_geo_checkbox_block()
         return status in checkbox.get_attribute('class').split()
+
+    def push_first_geo_item(self):
+        """Moves mouse to first geo item from found item's list and click by it."""
+        ActionChains(self.browser).move_to_element(self.get_first_geo_item()).click().perform()
+

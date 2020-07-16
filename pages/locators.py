@@ -8,3 +8,5 @@ class BasePageLocators:
     GEO_CHECKBOX_BLOCK = (By.CSS_SELECTOR, 'span.checkbox')
     GEO_FIRST_ITEM = (By.CSS_SELECTOR, 'div.popup__content > ul > li:nth-child(1)')
     MAIN_JSON_BLOCK = (By.CSS_SELECTOR, 'div.rows__row_main > div.main')
+    REGION_CITY_NAME_TEXT = (By.CSS_SELECTOR, '.region__cityname_text')
+    REGION_CITY_NAME_NEWS = (By.CSS_SELECTOR, '#news_tab_region > .news__tab-text')

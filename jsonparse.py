@@ -10,4 +10,3 @@ class ParseJsonObject:
 
     def get_geo_id(self):
         return self.__parsed_obj['widgets']['geoid']
-
