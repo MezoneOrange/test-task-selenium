@@ -4,6 +4,7 @@ import pytest
 from selenium.webdriver.common.keys import Keys
 
 from pages.basepage import BasePage
+from jsonparse import ParseJsonObject
 
 
 MAIN_URL = 'https://yandex.ru/'
@@ -37,9 +38,16 @@ class TestChooseCity:
         page.open()
         page.go_to_geo_page()
         page.deactivate_geo_checkbox()
+
         input_field = page.get_city_input_field()
         input_field.send_keys("Moscow")
         page.push_first_geo_item()
+
+        page.should_be_main_block()
+        main = page.get_main_block()
+        obj = ParseJsonObject(main.get_attribute('data-bem'))
+        print(obj.get_geo_id())
+
 
 
 

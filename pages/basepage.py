@@ -67,6 +67,10 @@ class BasePage:
         """Returns first element from item's list."""
         return self.browser.find_element(*BasePageLocators.GEO_FIRST_ITEM)
 
+    def get_main_block(self):
+        """Returns main block in the main page."""
+        return self.browser.find_element(*BasePageLocators.MAIN_JSON_BLOCK)
+
     def should_be_geo_link(self):
         """Checks that geo link is presented."""
         assert self.is_element_present(*BasePageLocators.CHOOSE_GEO_LINK), "Geo link is not presented."
@@ -78,6 +82,10 @@ class BasePage:
     def should_be_city_input_field(self):
         """Checks that city's input field is presented."""
         assert self.is_element_present(*BasePageLocators.GEO_INPUT_FIELD), "Geo city's input field is not presented."
+
+    def should_be_main_block(self):
+        """Checks that main block is presented."""
+        assert self.is_element_present(*BasePageLocators.MAIN_JSON_BLOCK), "Geo main block is not presented."
 
     def is_element_present(self, how, what):
         """Checks element to exist by locator."""
