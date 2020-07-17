@@ -12,6 +12,7 @@ MAIN_URL = 'https://yandex.ru/'
 class TestChangeGeoPosition:
     """Test cases for check that some is presented."""
 
+    @pytest.mark.is_present
     def test_existing_region_elements(self, browser):
         """Test case that user can see elements when starts the main page."""
         page = BasePage(browser, MAIN_URL)
@@ -21,6 +22,7 @@ class TestChangeGeoPosition:
         page.should_be_city_name()
         page.should_be_maps_city_name()
 
+    @pytest.mark.is_present
     def test_existing_input_fields(self, browser):
         """Test case that user can see input fields when move to the page for change geo position."""
         page = BasePage(browser, MAIN_URL)
@@ -30,6 +32,7 @@ class TestChangeGeoPosition:
         page.should_be_geo_checkbox()
 
     @pytest.mark.parametrize('city', ['Москва', 'Екатеринбург', 'Санкт-Петербург', 'Самара', 'Казань'])
+    @pytest.mark.is_present
     def test_popup_item_is_found(self, browser, city):
         """Test case for checks that user can see first item of popup menu when input correct city name.
 
@@ -62,6 +65,7 @@ class TestChangeGeoPosition:
         comparison.is_equal(city, geo_city_name)
 
     @pytest.mark.parametrize('city', ['', ' ', 'териненг', 'врвапаывап', 'Cаmаpа', 'Казнь ыыв'])
+    @pytest.mark.wrong_input
     def test_popup_item_is_not_found(self, browser, city):
         """Test case for checks that user doesn't see popup menu if input blank or incorrect city name.
 
@@ -82,7 +86,8 @@ class TestChangeGeoPosition:
         page.should_not_be_first_geo_item()
 
     @pytest.mark.parametrize('city', ['Москва', 'Екатеринбург', 'Санкт-Петербург', 'Самара', 'Казань'])
-    def test_change_geo_position(self, browser, city):
+    @pytest.mark.choose_location
+    def test_choose_geo_position(self, browser, city):
         """Test case for checks that geo position would be equal sent data.
 
         Test case description:
@@ -129,7 +134,7 @@ class TestChangeGeoPosition:
                                                     ('Санкт-Петербург', 'Самара'),
                                                     ('Самара', 'Казань'),
                                                     ('Казань', 'Москва')])
-    @pytest.mark.test
+    @pytest.mark.choose_location
     def test_data_in_main_page_will_change(self, browser, city_from, city_to):
         """Test case for checks that geo position would be changed.
 
