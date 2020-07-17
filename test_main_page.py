@@ -10,11 +10,18 @@ MAIN_URL = 'https://yandex.ru/'
 
 
 class TestChangeGeoPosition:
-    """Test cases for check that some is presented."""
+    """Tests for main and geo position pages of site https://yandex.ru ."""
 
     @pytest.mark.is_present
     def test_existing_region_elements(self, browser):
-        """Test case that user can see elements when starts the main page."""
+        """Test case that user can see elements when starts the main page.
+
+        Test case description:
+
+        When user moves to the main page of yandex.ru he can see name of city in map link and navigation bar, also,
+        can see link to the page for change his geo position.
+
+        """
         page = BasePage(browser, MAIN_URL)
         page.open()
         page.should_be_main_block()
@@ -24,7 +31,12 @@ class TestChangeGeoPosition:
 
     @pytest.mark.is_present
     def test_existing_input_fields(self, browser):
-        """Test case that user can see input fields when move to the page for change geo position."""
+        """Test case that user can see input fields when move to the page for change geo position.
+
+        When user moves to the page for change geo position he can see input field for search another geo position and
+        checkbox for autodetect geo position.
+
+        """
         page = BasePage(browser, MAIN_URL)
         page.open()
         page.go_to_geo_page()
@@ -95,13 +107,13 @@ class TestChangeGeoPosition:
         User moves to the page for choose a geo position. Switches off checkbox. Writes in input field correct
         city name. Popup menu becomes visible.
 
-        Programme gets geoid and city name from the json object that first item of popup menu will return.
+        The programme gets geoid and city name from the json object that first item of popup menu will return.
 
         User clicks by the first element of popup menu and redirects to the main page with new geo position.
 
-        Programme gets geoid from the json object that will be received in the main 'div' block in the main page.
-        Also, gets city name from navigation block and map link block. And compares all these variables with those
-        which were got from the geo position page.
+        The programme gets geoid from the json object that will be received in the main 'div' block in the main page.
+        Also, gets city name from the navigation block and the map link block. And compares all these variables with
+        those which were got from the geo position page.
 
         """
         page = BasePage(browser, MAIN_URL)
@@ -144,14 +156,14 @@ class TestChangeGeoPosition:
         city name. Popup menu becomes visible. User clicks by the first element of popup menu and redirects
         to the main page with new geo position.
 
-        Programme gets geoid from the json object that will be received in the main 'div' block in the main page.
-        Also, gets city name from navigation block and map link block.
+        The programme gets geoid from the json object that will be received in the main 'div' block in the main page.
+        Also, gets city name from the navigation block and the map link block.
 
         After that, user moves to the page for choose a geo position. Writes in input field another correct city name.
         Popup menu becomes visible. User clicks by the first element of popup menu and redirects to the main page
         with new geo position.
 
-        Programme also gets geoid, city name from navigation block and map link block another geo position.
+        The programme also gets geoid, city name from the navigation block and the map link block another geo position.
         Compares they variables with previous variables there are must be different.
 
         """
