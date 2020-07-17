@@ -19,7 +19,6 @@ class TestChangeGeoPosition:
         page.should_be_main_block()
         page.should_be_geo_link()
         page.should_be_city_name()
-        page.should_be_news_region_name()
         page.should_be_maps_city_name()
 
     def test_existing_input_fields(self, browser):
