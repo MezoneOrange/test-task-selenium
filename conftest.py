@@ -1,5 +1,3 @@
-from time import sleep
-
 import pytest
 from selenium import webdriver
 
@@ -8,6 +6,5 @@ from selenium import webdriver
 def browser():
     browser = webdriver.Chrome()
     yield browser
-    sleep(5)
     print("\nquit browser..")
     browser.quit()
