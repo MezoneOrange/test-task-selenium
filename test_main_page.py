@@ -89,7 +89,6 @@ class TestChooseCity:
         page = BasePage(browser, MAIN_URL)
         page.open()
 
-
     def test_existing_city_input_fields(self, browser):
         """The test for checking to city's input fields is exist."""
         page = BasePage(browser, MAIN_URL)
@@ -97,7 +96,6 @@ class TestChooseCity:
         page.go_to_geo_page()
         page.should_be_city_input_field()
         page.should_be_geo_checkbox()
-
 
     def test_change_geo_location(self, browser):
         """Check that geo location would be changed to selected location."""
@@ -120,7 +118,6 @@ class TestChooseCity:
         print(type(obj.get_geo_id()))
 
         print(page.get_maps_city_name().text)
-        print(page.get_news_region_name().text)
         print(page.get_city_name().text)
 
 
