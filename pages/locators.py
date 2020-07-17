@@ -11,3 +11,4 @@ class BasePageLocators:
     REGION_CITY_NAME_TEXT = (By.CSS_SELECTOR, '.region__cityname_text')
     REGION_NEWS_TITLE = (By.CSS_SELECTOR, '#news_tab_region > span')
     REGION_CITY_NAME_TITLE = (By.CSS_SELECTOR, 'a.home-link.geolink > span.geolink__reg')
+    POPUP_MENU = (By.CSS_SELECTOR, 'div.popup')

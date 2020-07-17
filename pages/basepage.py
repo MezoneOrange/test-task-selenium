@@ -79,6 +79,10 @@ class BasePage:
         """Returns city name from main page."""
         return self.browser.find_element(*BasePageLocators.REGION_CITY_NAME_TITLE)
 
+    def get_popup_menu(self):
+        """Returns popup menu from geo page."""
+        return self.browser.find_element(*BasePageLocators.POPUP_MENU)
+
     def should_be_geo_link(self):
         """Checks that geo link is presented in the main page."""
         assert self.is_element_present(*BasePageLocators.CHOOSE_GEO_LINK), "Geo link is not presented."
@@ -110,6 +114,10 @@ class BasePage:
     def should_be_city_name(self):
         """Checks that city name is presented."""
         assert self.is_element_present(*BasePageLocators.REGION_CITY_NAME_TITLE), "City name is not presented."
+
+    def should_be_popup_menu(self):
+        """Checks that popup menu is presented."""
+        assert self.is_element_present(*BasePageLocators.POPUP_MENU), "Popup menu is not presented."
 
     def is_element_present(self, how, what):
         """Checks element to exist by locator."""
