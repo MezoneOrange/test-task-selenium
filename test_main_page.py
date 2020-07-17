@@ -9,7 +9,7 @@ from options import comparison
 MAIN_URL = 'https://yandex.ru/'
 
 
-class TestExistingObjects:
+class TestChangeGeoPosition:
     """Test cases for check that some is presented."""
 
     def test_existing_region_elements(self, browser):
@@ -32,7 +32,7 @@ class TestExistingObjects:
 
     @pytest.mark.parametrize('city', ['Москва', 'Екатеринбург', 'Санкт-Петербург', 'Самара', 'Казань'])
     def test_popup_item_is_found(self, browser, city):
-        """Test case that user can see first item of popup menu when input correct city name.
+        """Test case for checks that user can see first item of popup menu when input correct city name.
 
         Test case description:
 
@@ -62,9 +62,8 @@ class TestExistingObjects:
         comparison.is_equal(city, geo_city_name)
 
     @pytest.mark.parametrize('city', ['', ' ', 'териненг', 'врвапаывап', 'Cаmаpа', 'Казнь ыыв'])
-    @pytest.mark.test
     def test_popup_item_is_not_found(self, browser, city):
-        """Test case that user doesn't see popup menu if input blank or incorrect city name.
+        """Test case for checks that user doesn't see popup menu if input blank or incorrect city name.
 
         Test case description:
 
@@ -81,48 +80,46 @@ class TestExistingObjects:
         city_input_field.send_keys(city)
         page.should_not_be_first_geo_item()
 
+    @pytest.mark.parametrize('city', ['Москва', 'Екатеринбург', 'Санкт-Петербург', 'Самара', 'Казань'])
+    @pytest.mark.test
+    def test_change_geo_position(self, browser, city):
+        """Test case for checks that geo position would be changed.
 
-class TestChooseCity:
-    """Test cases for change current city into yandex.ru site."""
+        Test case description:
 
-    def test_open_page(self, browser):
-        page = BasePage(browser, MAIN_URL)
-        page.open()
+        User moves to the page for choose a geo position. Switches off checkbox. Writes in input field correct
+        city name. Popup menu becomes visible.
 
-    def test_existing_city_input_fields(self, browser):
-        """The test for checking to city's input fields is exist."""
-        page = BasePage(browser, MAIN_URL)
-        page.open()
-        page.go_to_geo_page()
-        page.should_be_city_input_field()
-        page.should_be_geo_checkbox()
+        Programme gets geoid and city name from the json object that first item of popup menu will return.
 
-    def test_change_geo_location(self, browser):
-        """Check that geo location would be changed to selected location."""
+        User clicks by the first element of popup menu and redirects the to main page with new geo position.
+
+        Programme gets geoid from the json object that will be received in the main 'div' block in the main page.
+        Also, gets city name from navigation block and map link block. And compares all these variables with those
+        which were got from the geo position page.
+
+        """
         page = BasePage(browser, MAIN_URL)
         page.open()
         page.go_to_geo_page()
         page.deactivate_geo_checkbox()
 
-        input_field = page.get_city_input_field()
-        input_field.send_keys("Москва")
-        page.should_be_first_geo_item()
-        city_obj = page.get_first_geo_item()
-        city = ParseGeoPageObject(city_obj.get_attribute('data-bem'))
-        print(city.get_city_name(), city.get_region_name(), type(city.get_geo_id()))
-        page.push_first_geo_item()
+        city_input_field = page.get_city_input_field()
+        city_input_field.send_keys(city)
 
-        page.should_be_main_block()
-        main = page.get_main_block()
-        obj = ParseMainPageObject(main.get_attribute('data-bem'))
-        print(type(obj.get_geo_id()))
+        popup_item = page.get_first_geo_item()
+        popup_item = ParseGeoPageObject(popup_item.get_attribute('data-bem'))
+        popup_geo_id = popup_item.get_geo_id()
+        popup_city_name = popup_item.get_city_name()
+        page.click_first_geo_item()
 
-        print(page.get_maps_city_name().text)
-        print(page.get_city_name().text)
+        main_item = page.get_main_block()
+        main_item = ParseMainPageObject(main_item.get_attribute('data-bem'))
+        main_geo_id = main_item.get_geo_id()
+        title_city_name = page.get_city_name().text
+        map_city_name = page.get_maps_city_name().text
 
-
-
-
-
-
+        comparison.is_equal(popup_geo_id, main_geo_id)
+        comparison.is_equal(popup_city_name, title_city_name)
+        comparison.element_within(map_city_name, popup_city_name[:-1])
 

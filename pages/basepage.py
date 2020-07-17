@@ -139,7 +139,7 @@ class BasePage:
         checkbox = self.get_geo_checkbox_block()
         return status in checkbox.get_attribute('class').split()
 
-    def push_first_geo_item(self):
+    def click_first_geo_item(self):
         """Moves mouse to first geo item from found item's list and click by it."""
         ActionChains(self.browser).move_to_element(self.get_first_geo_item()).click().perform()
 

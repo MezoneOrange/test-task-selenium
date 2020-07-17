@@ -41,6 +41,3 @@ class ParseGeoPageObject(ParseJsonObject):
         """Returns city name requested city."""
         return self.parsed_obj['b-autocomplete-item']['title']
 
-    def get_region_name(self) -> str:
-        """Returns region name requested city."""
-        return self.parsed_obj['b-autocomplete-item']['subtitle']
