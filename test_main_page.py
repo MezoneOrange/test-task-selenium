@@ -50,6 +50,10 @@ class TestChooseCity:
         obj = ParseMainPageObject(main.get_attribute('data-bem'))
         print(type(obj.get_geo_id()))
 
+        print(page.get_maps_city_name().text)
+        print(page.get_news_region_name().text)
+        print(page.get_city_name().text)
+
 
 
 

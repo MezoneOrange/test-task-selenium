@@ -68,8 +68,16 @@ class BasePage:
         return self.browser.find_element(*BasePageLocators.MAIN_JSON_BLOCK)
 
     def get_maps_city_name(self):
-        """Returns main block in the main page."""
+        """Returns maps city name from main page."""
         return self.browser.find_element(*BasePageLocators.REGION_CITY_NAME_TEXT)
+
+    def get_news_region_name(self):
+        """Returns news region name from main page."""
+        return self.browser.find_element(*BasePageLocators.REGION_NEWS_TITLE)
+
+    def get_city_name(self):
+        """Returns city name from main page."""
+        return self.browser.find_element(*BasePageLocators.REGION_CITY_NAME_TITLE)
 
     def should_be_geo_link(self):
         """Checks that geo link is presented."""
@@ -94,6 +102,14 @@ class BasePage:
     def should_be_maps_city_name(self):
         """Checks that city name is presented."""
         assert self.is_element_present(*BasePageLocators.REGION_CITY_NAME_TEXT), "Geo city name is not presented."
+
+    def should_be_news_region_name(self):
+        """Checks that news region name is presented."""
+        assert self.is_element_present(*BasePageLocators.REGION_NEWS_TITLE), "News region name is not presented."
+
+    def should_be_city_name(self):
+        """Checks that city name is presented."""
+        assert self.is_element_present(*BasePageLocators.REGION_CITY_NAME_TITLE), "City name is not presented."
 
     def is_element_present(self, how, what):
         """Checks element to exist by locator."""
