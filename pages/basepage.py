@@ -9,16 +9,14 @@ from .locators import BasePageLocators
 
 
 class BasePage:
-    """Class for communication with main page and page's for choose city.
+    """Class for communication with the main page and the geo position page.
 
-    Initialize Chrome webdriver.
-
-    Contains all methods for choose current city.
+    Contains methods for test the pages.
 
     """
 
     def __init__(self, browser, url, timeout=10):
-        """Initialize Chrome webdriver.
+        """Initialize webdriver.
 
         :param browser - selenium driver object.
         :param url - link for page.
@@ -29,11 +27,11 @@ class BasePage:
         self.browser.implicitly_wait(timeout)
 
     def click_first_geo_item(self):
-        """Moves mouse to first geo item from popup items list and click by it."""
+        """Moves mouse to the first geo item from popup items list and click by it."""
         ActionChains(self.browser).move_to_element(self.get_first_geo_item()).click().perform()
 
     def deactivate_geo_checkbox(self):
-        """Makes checkbox for auto-choosing geo location is deactivated."""
+        """Makes checkbox, for auto-choosing geo location, is deactivated."""
         if self.is_geo_checkbox_active():
             self.get_geo_checkbox().click()
 
@@ -46,7 +44,7 @@ class BasePage:
         return self.browser.find_element(*BasePageLocators.REGION_CITY_NAME_TITLE)
 
     def get_first_geo_item(self):
-        """Returns first element from item's list."""
+        """Returns the first element from item's list."""
         return self.browser.find_element(*BasePageLocators.GEO_FIRST_ITEM)
 
     def get_geo_checkbox(self):
@@ -83,7 +81,7 @@ class BasePage:
             return False
 
     def is_geo_checkbox_active(self):
-        """Check checkbox. If active, returns True."""
+        """Checks checkbox. If active, returns True."""
         status = 'checkbox_checked_yes'
         checkbox = self.get_geo_checkbox_block()
         return status in checkbox.get_attribute('class').split()
@@ -143,6 +141,3 @@ class BasePage:
             self.browser.get(self.url)
         else:
             assert self.is_status_200(), "Wrong status code."
-
-
-

@@ -10,7 +10,7 @@ MAIN_URL = 'https://yandex.ru/'
 
 
 class TestChangeGeoPosition:
-    """Tests for main and geo position pages of site https://yandex.ru ."""
+    """Tests for main and geo position pages of the site https://yandex.ru ."""
 
     @pytest.mark.is_present
     def test_existing_region_elements(self, browser):
@@ -50,11 +50,11 @@ class TestChangeGeoPosition:
 
         Test case description:
 
-        User moves to the page for choose a geo position. Switches off checkbox. Writes in input field correct
+        User moves to the page for choose a geo position. Switches off checkbox. Fills input field with correct
         city name. Popup menu becomes visible. After that, he can see first item of the popup menu.
 
-        Test programme checks that city name, that user is written, is equal to city name from json object
-        that was return to the first position of popup menu.
+        The programme checks that city name, that user is written, is equal city name from json object
+        that was returned the first position of popup menu.
 
         """
         page = BasePage(browser, MAIN_URL)
@@ -83,7 +83,7 @@ class TestChangeGeoPosition:
 
         Test case description:
 
-        User moves to the page for choose a geo position. Switches off checkbox. Writes in input field incorrect
+        User moves to the page for choose a geo position. Switches off checkbox. fills input field with incorrect
         city name or doesn't write anything. Popup menu stays invisible.
 
         """
@@ -100,11 +100,11 @@ class TestChangeGeoPosition:
     @pytest.mark.parametrize('city', ['Москва', 'Екатеринбург', 'Санкт-Петербург', 'Самара', 'Казань'])
     @pytest.mark.choose_location
     def test_choose_geo_position(self, browser, city):
-        """Test case for checks that geo position would be equal sent data.
+        """Test case for checks that geo position would equal to sent data.
 
         Test case description:
 
-        User moves to the page for choose a geo position. Switches off checkbox. Writes in input field correct
+        User moves to the page for choose a geo position. Switches off checkbox. Fills input field with correct
         city name. Popup menu becomes visible.
 
         The programme gets geoid and city name from the json object that first item of popup menu will return.
@@ -152,14 +152,14 @@ class TestChangeGeoPosition:
 
         Test case description:
 
-        User moves to the page for choose a geo position. Switches off checkbox. Writes in input field correct
+        User moves to the page for choose a geo position. Switches off checkbox. Fills input field with correct
         city name. Popup menu becomes visible. User clicks by the first element of popup menu and redirects
         to the main page with new geo position.
 
         The programme gets geoid from the json object that will be received in the main 'div' block in the main page.
         Also, gets city name from the navigation block and the map link block.
 
-        After that, user moves to the page for choose a geo position. Writes in input field another correct city name.
+        After that, user moves to the page for choose a geo position. Fills input field with another correct city name.
         Popup menu becomes visible. User clicks by the first element of popup menu and redirects to the main page
         with new geo position.
 
