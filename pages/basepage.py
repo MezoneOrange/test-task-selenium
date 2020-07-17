@@ -80,7 +80,7 @@ class BasePage:
         return self.browser.find_element(*BasePageLocators.REGION_CITY_NAME_TITLE)
 
     def should_be_geo_link(self):
-        """Checks that geo link is presented."""
+        """Checks that geo link is presented in the main page."""
         assert self.is_element_present(*BasePageLocators.CHOOSE_GEO_LINK), "Geo link is not presented."
 
     def should_be_geo_checkbox(self):

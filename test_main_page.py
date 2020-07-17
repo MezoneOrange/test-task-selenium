@@ -8,6 +8,29 @@ from options.jsonparse import ParseGeoPageObject
 MAIN_URL = 'https://yandex.ru/'
 
 
+class TestExistingObjects:
+    """Test cases for check that some is presented, is visible, has class."""
+
+    def test_existing_region_elements(self, browser):
+        """Test case that user can see elements when starts the main page."""
+        page = BasePage(browser, MAIN_URL)
+        page.open()
+        page.should_be_main_block()
+        page.should_be_geo_link()
+        page.should_be_city_name()
+        page.should_be_news_region_name()
+        page.should_be_maps_city_name()
+
+    @pytest.mark.test
+    def test_existing_input_fields(self, browser):
+        """Test case that user can see input fields when move to the page for change geo position."""
+        page = BasePage(browser, MAIN_URL)
+        page.open()
+        page.go_to_geo_page()
+        page.should_be_city_input_field()
+        page.should_be_geo_checkbox()
+
+
 class TestChooseCity:
     """Test cases for change current city into yandex.ru site."""
 
@@ -15,11 +38,6 @@ class TestChooseCity:
         page = BasePage(browser, MAIN_URL)
         page.open()
 
-    def test_existing_geo_link(self, browser):
-        """The test for checking to geo link is exist."""
-        page = BasePage(browser, MAIN_URL)
-        page.open()
-        page.should_be_geo_link()
 
     def test_existing_city_input_fields(self, browser):
         """The test for checking to city's input fields is exist."""
@@ -29,7 +47,7 @@ class TestChooseCity:
         page.should_be_city_input_field()
         page.should_be_geo_checkbox()
 
-    @pytest.mark.test
+
     def test_change_geo_location(self, browser):
         """Check that geo location would be changed to selected location."""
         page = BasePage(browser, MAIN_URL)
