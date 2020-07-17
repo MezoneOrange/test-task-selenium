@@ -1,7 +1,9 @@
 import requests
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from .locators import BasePageLocators
 
@@ -95,6 +97,10 @@ class BasePage:
         """Checks that first geo item is found."""
         assert self.is_element_present(*BasePageLocators.GEO_FIRST_ITEM), "First geo item is not found."
 
+    def should_not_be_first_geo_item(self):
+        """Checks that first geo item is not found."""
+        assert self.is_not_present(*BasePageLocators.GEO_FIRST_ITEM), "First geo was found."
+
     def should_be_city_input_field(self):
         """Checks that city's input field is presented."""
         assert self.is_element_present(*BasePageLocators.GEO_INPUT_FIELD), "Geo city's input field is not presented."
@@ -126,6 +132,14 @@ class BasePage:
             return True
         except NoSuchElementException:
             return False
+
+    def is_not_present(self, how, what, timeout=6):
+        """Returns true if element is not presented."""
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return True
+        return False
 
     def is_geo_checkbox_active(self):
         """Check checkbox. If active, returns True."""

@@ -31,7 +31,6 @@ class TestExistingObjects:
         page.should_be_geo_checkbox()
 
     @pytest.mark.parametrize('city', ['Москва', 'Екатеринбург', 'Санкт-Петербург', 'Самара', 'Казань'])
-    @pytest.mark.test
     def test_popup_item_is_found(self, browser, city):
         """Test case that user can see first item of popup menu when input correct city name.
 
@@ -61,6 +60,26 @@ class TestExistingObjects:
         json_obj = ParseGeoPageObject(first_popup_item.get_attribute('data-bem'))
         geo_city_name = json_obj.get_city_name()
         comparison.is_equal(city, geo_city_name)
+
+    @pytest.mark.parametrize('city', ['', ' ', 'териненг', 'врвапаывап', 'Cаmаpа', 'Казнь ыыв'])
+    @pytest.mark.test
+    def test_popup_item_is_not_found(self, browser, city):
+        """Test case that user doesn't see popup menu if input blank or incorrect city name.
+
+        Test case description:
+
+        User moves to the page for choose a geo position. Switches off checkbox. Writes in input field incorrect
+        city name or doesn't write anything. Popup menu stays invisible.
+
+        """
+        page = BasePage(browser, MAIN_URL)
+        page.open()
+        page.go_to_geo_page()
+        page.deactivate_geo_checkbox()
+
+        city_input_field = page.get_city_input_field()
+        city_input_field.send_keys(city)
+        page.should_not_be_first_geo_item()
 
 
 class TestChooseCity:
