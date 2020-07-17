@@ -79,6 +79,10 @@ class BasePage:
         """Checks that geo checkbox for auto location is presented."""
         assert self.is_element_present(*BasePageLocators.GEO_CHECKBOX), "Geo checkbox is not presented."
 
+    def should_be_first_geo_item(self):
+        """Checks that first geo item is found."""
+        assert self.is_element_present(*BasePageLocators.GEO_FIRST_ITEM), "First geo item is not found."
+
     def should_be_city_input_field(self):
         """Checks that city's input field is presented."""
         assert self.is_element_present(*BasePageLocators.GEO_INPUT_FIELD), "Geo city's input field is not presented."

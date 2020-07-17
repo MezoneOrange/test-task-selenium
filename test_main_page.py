@@ -1,10 +1,8 @@
-from time import sleep
-
 import pytest
-from selenium.webdriver.common.keys import Keys
 
 from pages.basepage import BasePage
-from jsonparse import ParseJsonObject
+from options.jsonparse import ParseMainPageObject
+from options.jsonparse import ParseGeoPageObject
 
 
 MAIN_URL = 'https://yandex.ru/'
@@ -40,13 +38,17 @@ class TestChooseCity:
         page.deactivate_geo_checkbox()
 
         input_field = page.get_city_input_field()
-        input_field.send_keys("Moscow")
+        input_field.send_keys("Москва")
+        page.should_be_first_geo_item()
+        city_obj = page.get_first_geo_item()
+        city = ParseGeoPageObject(city_obj.get_attribute('data-bem'))
+        print(city.get_city_name(), city.get_region_name(), type(city.get_geo_id()))
         page.push_first_geo_item()
 
         page.should_be_main_block()
         main = page.get_main_block()
-        obj = ParseJsonObject(main.get_attribute('data-bem'))
-        print(obj.get_geo_id())
+        obj = ParseMainPageObject(main.get_attribute('data-bem'))
+        print(type(obj.get_geo_id()))
 
 
 
