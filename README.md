@@ -1,5 +1,9 @@
 # Test task.
 ###### The site - https://yandex.ru
+
+> #### Important: this app uses only Chrome Selenium WebDriver and driver should be installed in your Chrome Browser. 
+> Chrome driver link: `https://sites.google.com/a/chromium.org/chromedriver/downloads`
+
 Includes test cases for the site's function where user can change his geo position. And that data would change on current location.
 
 The application use next stack of technologies:
