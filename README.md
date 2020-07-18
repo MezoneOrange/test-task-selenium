@@ -19,7 +19,7 @@ You can use the pytest command without pointing python file, because in this cas
 
     pytest -s --reruns 3
     
-Test cases splitted by markers, and you can use markers in the pytest command.
+Test cases were split by markers, and you can use markers in the pytest command. Use option `-m` and name of a marker after that.
 
     pytest -s -m choose_location --reruns 3
     
